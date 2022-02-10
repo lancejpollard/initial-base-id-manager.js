@@ -1,0 +1,6 @@
+{
+  "name": "@lancejpollard/initial-base-id-manager.js",
+  "dependencies": {
+    "@lancejpollard/configured-quadratic-residue-prng.js": "*"
+  }
+}
