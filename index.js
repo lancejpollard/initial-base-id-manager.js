@@ -32,7 +32,7 @@ function generateBase() {
 
   config.host ??= {}
   config.host.salt = createSalt()
-  config.host.mark = [ { base: 0n, size: 256n } ]
+  config.host.mark = { head: 256n, list: [ { base: 0n, size: 256n } ] }
   config.host.list = {}
 }
 
@@ -45,7 +45,7 @@ function generateHost(name) {
   host.mark = createMark(config.host.salt, config.host.mark)
   host.deck = {}
   host.deck.salt = String(createSalt())
-  host.deck.mark = [ { base: 0n, size: 256n } ]
+  host.deck.mark = { head: 256n, list: [ { base: 0n, size: 256n } ] }
   host.deck.list = {}
 }
 
@@ -70,13 +70,15 @@ function createSalt() {
   return getRandomBetween(BigInt(2 ** 56), BigInt(2 ** 64) - 1n)
 }
 
-function createMark(salt, list) {
-  const bond = list[0]
+function createMark(salt, base) {
+  const bond = base.list[0]
   const mark = permute(bond.base, salt, 32)
   bond.base++
   bond.size--
   if (bond.size === 0n) {
-    list.splice(0, 1)
+    bond.base = base.head
+    bond.size = 256n
+    base.head += bond.size
   }
   return mark
 }

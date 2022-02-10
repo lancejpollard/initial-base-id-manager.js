@@ -19,23 +19,29 @@ node index generate deck drumwork/base
 {
   "host": {
     "salt": "7438626736786884082",
-    "mark": [
-      {
-        "base": "1",
-        "size": "255"
-      }
-    ],
+    "mark": {
+      "head": "256",
+      "list": [
+        {
+          "base": "1",
+          "size": "255"
+        }
+      ]
+    },
     "list": {
       "drumwork": {
         "mark": "7837397760867793543",
         "deck": {
           "salt": "4313616192412195232",
-          "mark": [
-            {
-              "base": "3",
-              "size": "253"
-            }
-          ],
+          "mark": {
+            "head": "256",
+            "list": [
+              {
+                "base": "3",
+                "size": "253"
+              }
+            ]
+          },
           "list": {
             "work": {
               "mark": "1563498321738253212"
