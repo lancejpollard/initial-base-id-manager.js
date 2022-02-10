@@ -84,7 +84,7 @@ function createMark(salt, base) {
 }
 
 function load(path) {
-  const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'))
+  const config = JSON.parse(fs.readFileSync(path, 'utf-8'))
   deserialize(config)
   return config
 }
