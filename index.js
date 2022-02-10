@@ -12,18 +12,32 @@ const inputText = process.argv[4]
 const config = load(CONFIG_PATH)
 
 if (inputAction === 'generate') {
-  if (inputType === 'host') {
-    generateHost(inputText)
-  } else if (inputType === 'deck') {
-    generateDeck(inputText)
+  generate({
+    type: inputType,
+    text: inputText,
+  })
+
+  save()
+}
+
+module.exports = {
+  generate,
+  save,
+  load
+}
+
+function generate({
+  type,
+  text
+}) {
+  if (type === 'host') {
+    generateHost(text)
+  } else if (type === 'deck') {
+    generateDeck(text)
   } else {
     generateBase()
   }
-} else {
-  throw new Error(`Unknown action ${inputAction}.`)
 }
-
-save(CONFIG_PATH, config)
 
 function generateBase() {
   if (config.host) {
@@ -84,14 +98,14 @@ function createMark(salt, base) {
 }
 
 function load(path) {
-  const config = JSON.parse(fs.readFileSync(path, 'utf-8'))
+  const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'))
   deserialize(config)
   return config
 }
 
-function save(path, config) {
+function save() {
   serialize(config)
-  fs.writeFileSync(path, JSON.stringify(config, null, 2))
+  fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2))
 }
 
 function serialize(obj) {
